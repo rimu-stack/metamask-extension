@@ -66,8 +66,6 @@ const t = (key) => {
       return 'Contacts';
     case 'securityAndPrivacy':
       return 'Security & privacy';
-    case 'revealSeedWords':
-      return 'Reveal Secret Recovery Phrase';
     case 'showIncomingTransactions':
       return 'Show incoming transactions';
     case 'usePhishingDetection':

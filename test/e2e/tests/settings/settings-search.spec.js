@@ -11,7 +11,6 @@ describe('Settings Search', function () {
     general: 'Primary currency',
     advanced: 'State logs',
     contacts: 'Contacts',
-    security: 'Reveal Secret',
     alerts: 'Browsing a website',
     networks: 'Ethereum Mainnet',
     experimental: 'Nicknames',
@@ -94,33 +93,6 @@ describe('Settings Search', function () {
           await driver.isElementPresent({ text: page, tag: 'div' }),
           true,
           `${settingsSearch.contacts} item does not redirect to ${page} view`,
-        );
-      },
-    );
-  });
-  it('should find element inside the "Security & privacy" tab', async function () {
-    await withFixtures(
-      {
-        fixtures: new FixtureBuilder().build(),
-        ganacheOptions: defaultGanacheOptions,
-        title: this.test.fullTitle(),
-      },
-      async ({ driver }) => {
-        await unlockWallet(driver);
-
-        await driver.clickElement(
-          '[data-testid="account-options-menu-button"]',
-        );
-        await driver.clickElement({ text: 'Settings', tag: 'div' });
-        await driver.fill('#search-settings', settingsSearch.security);
-
-        // Check if element redirects to the correct page
-        const page = 'Security';
-        await driver.clickElement({ text: page, tag: 'span' });
-        assert.equal(
-          await driver.isElementPresent({ text: page, tag: 'div' }),
-          true,
-          `${settingsSearch.security} item does not redirect to ${page} view`,
         );
       },
     );

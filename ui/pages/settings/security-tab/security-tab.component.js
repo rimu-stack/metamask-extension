@@ -134,56 +134,6 @@ export default class SecurityTab extends PureComponent {
 
   hideSrpQuizModal = () => this.setState({ srpQuizModalVisible: false });
 
-  renderSeedWords() {
-    const { t } = this.context;
-
-    return (
-      <>
-        <div
-          ref={this.settingsRefs[0]}
-          className="settings-page__security-tab-sub-header"
-        >
-          {t('secretRecoveryPhrase')}
-        </div>
-        <div className="settings-page__content-padded">
-          <Button
-            data-testid="reveal-seed-words"
-            type="danger"
-            size={BUTTON_SIZES.LG}
-            onClick={(event) => {
-              event.preventDefault();
-              this.context.trackEvent({
-                category: MetaMetricsEventCategory.Settings,
-                event: MetaMetricsEventName.KeyExportSelected,
-                properties: {
-                  key_type: MetaMetricsEventKeyType.Srp,
-                  location: 'Settings',
-                },
-              });
-              this.context.trackEvent({
-                category: MetaMetricsEventCategory.Settings,
-                event: MetaMetricsEventName.SrpRevealClicked,
-                properties: {
-                  key_type: MetaMetricsEventKeyType.Srp,
-                  location: 'Settings',
-                },
-              });
-              this.setState({ srpQuizModalVisible: true });
-            }}
-          >
-            {t('revealSeedWords')}
-          </Button>
-          {this.state.srpQuizModalVisible && (
-            <SRPQuiz
-              isOpen={this.state.srpQuizModalVisible}
-              onClose={this.hideSrpQuizModal}
-            />
-          )}
-        </div>
-      </>
-    );
-  }
-
   renderSecurityAlertsToggle() {
     const { t } = this.context;
     const { securityAlertsEnabled } = this.props;
@@ -977,7 +927,6 @@ export default class SecurityTab extends PureComponent {
         <span className="settings-page__security-tab-sub-header__bold">
           {this.context.t('security')}
         </span>
-        {this.renderSeedWords()}
         {/* ///: BEGIN:ONLY_INCLUDE_IF(blockaid) */}
         {this.renderSecurityAlertsToggle()}
         {/* ///: END:ONLY_INCLUDE_IF */}

@@ -100,70 +100,12 @@ export const AccountDetails = ({ address }) => {
             {attemptingExport ? t('showPrivateKey') : avatar}
           </ModalHeader>
           <ModalBody>
-            {attemptingExport ? (
-              <>
-                <Box
-                  display={Display.Flex}
-                  alignItems={AlignItems.center}
-                  flexDirection={FlexDirection.Column}
-                >
-                  {avatar}
-                  <Text
-                    marginTop={2}
-                    marginBottom={2}
-                    variant={TextVariant.bodyLgMedium}
-                    style={{ wordBreak: 'break-word' }}
-                  >
-                    {name}
-                  </Text>
-                  <AddressCopyButton address={address} shorten />
-                </Box>
-                {privateKey ? (
-                  <AccountDetailsKey
-                    accountName={name}
-                    onClose={onClose}
-                    privateKey={privateKey}
-                  />
-                ) : (
-                  <AccountDetailsAuthenticate
-                    address={address}
-                    onCancel={onClose}
-                    setPrivateKey={setPrivateKey}
-                    setShowHoldToReveal={setShowHoldToReveal}
-                  />
-                )}
-              </>
-            ) : (
-              <AccountDetailsDisplay
-                accounts={accounts}
-                accountName={name}
-                address={address}
-                onExportClick={() => setAttemptingExport(true)}
-              />
-            )}
+
           </ModalBody>
         </ModalContent>
       </Modal>
 
       {/* This is the Modal that says "Hold to reveal private key" */}
-      <HoldToRevealModal
-        isOpen={showHoldToReveal}
-        onClose={() => {
-          trackEvent({
-            category: MetaMetricsEventCategory.Keys,
-            event: MetaMetricsEventName.KeyExportCanceled,
-            properties: {
-              key_type: MetaMetricsEventKeyType.Pkey,
-            },
-          });
-          setPrivateKey('');
-          setShowHoldToReveal(false);
-        }}
-        onLongPressed={() => {
-          setShowHoldToReveal(false);
-        }}
-        holdToRevealType="PrivateKey"
-      />
     </>
   );
 };
